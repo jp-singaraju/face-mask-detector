@@ -1,1 +1,1 @@
-# Computerized-Disease-Predictor
+# Computerized Healthcare Recommendation System
