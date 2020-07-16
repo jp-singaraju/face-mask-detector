@@ -19,10 +19,4 @@ for image in maskSet:
     plt.imshow(imageMain)
     plt.show()
 
-# Steps:
-# 1. encoding = binary classifier (0 or 1) (DONE)
-# 2. splitting the data (IN PROGRESS)
-# 3. construct the image generator/data augmentation = training the model + improving the data
-    # training the face mask model
-# 4. import a base model (MobilNetV2) = fine-tuning
 
