@@ -8,7 +8,6 @@ from PIL import Image
 import numpy as np
 import os
 import cv2
-import time
 
 # Lavik directory -
 no_mask_dir = r'D:\Face Mask Detection Dataset\without_mask'
