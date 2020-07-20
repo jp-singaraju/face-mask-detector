@@ -13,7 +13,7 @@ def barMethod1(iteration, total, prefix='', suffix='', decimals=1, length=100, f
     # updates the bar
     bar = fill * filledLength + '-' * (length - filledLength)
     # prints the bar with the correct params
-    print(f'\r{prefix} |{bar}| {percent}% {suffix}  >>>  taken time: {truncate(time)} secs', end=printEnd)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}  >>>  time taken: {truncate(time)} secs', end=printEnd)
     # if the bar is complete, print and stop
     if iteration == total:
         print()
