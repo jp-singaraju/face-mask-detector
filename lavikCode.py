@@ -1,28 +1,79 @@
-import matplotlib.image as mpimg
-import matplotlib.pyplot as plt
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
-from tensorflow.keras.preprocessing.image import img_to_array
-from tensorflow.keras.preprocessing.image import load_img
-from PIL import Image
-import numpy as np
+# import the packages listed below
+from os import system
 import os
 import cv2
+import progressBar
+import time
+import random
 
-# Lavik directory -
-no_mask_dir = r'D:\Face Mask Detection Dataset\without_mask'
-mask_dir = r'D:\Face Mask Detection Dataset\with_mask'
+# this code is supposed to append all the array values of the 20k images
+# it has added progress bars to show the progress so far
 
-train = np.empty(shape=(16000, 1), dtype=str)
-test = np.empty(shape=(4000, 1), dtype=str)
+# directories with 256 x 256 grayscale images
+# Pranav directories
+newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
+newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
 
-for index in range(8000):
-    # adds training data from both labels
-    train[2 * index], train[2 * index + 1] = os.path.join(no_mask_dir, os.listdir(no_mask_dir)[index]), os.path.join(mask_dir, os.listdir(mask_dir)[index])
+# Lavik directories
+# newWithoutDir = nothing now
+# newWithDir = nothing now
 
-for index in range(8000, 10000):
-    # adds testing data from both labels
-    test[2 * index], test[2 * index + 1] = os.path.join(no_mask_dir, os.listdir(no_mask_dir)[index]), os.path.join(mask_dir, os.listdir(mask_dir)[index])
+# declare a mask set and no mask set array to append image values to
+noMaskSet = []
+maskSet = []
 
-print(test[0])
-print(train[0])
+# time, counter, i = 0
+totalTime = 0.0
+counter = 0
+i = 0
+
+print('Program Started... ')  # print that the program started
+time.sleep(1)  # wait for 1 second
+system('cls')  # clear the screen/console on call
+start = time.time()  # start the timer
+
+# bar method with reading the image for the 10k images with a mask
+progressBar.barMethod1(0, 1000, prefix='Loading Faces... ', suffix='Complete', length=50, time=0)
+
+# loop in order to append all new mask image values
+for image in os.listdir(newWithDir):
+    # every 10 increments, update the bar
+    if counter % 10 == 0:
+        progressBar.barMethod1(i + 1, 1000, prefix='Loading Faces... ', suffix='Complete', length=50,
+                               time=float(totalTime))
+        i += 1
+    imageMain = cv2.imread(newWithDir + image)  # read the image from the directory
+    maskSet.append((imageMain, 'mask'))  # append the array image value and label to the maskSet list
+    counter += 1  # increment counter by 1
+    end = time.time()  # end time
+    totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
+
+# time, counter, i = 0
+totalTime = 0.0
+counter = 0
+i = 0
+start = time.time()  # start the timer
+
+# bar method with reading the image for the 10k images with a mask
+progressBar.barMethod1(0, 1000, prefix='Optimizing Images... ', suffix='Complete', length=50, time=0)
+
+# loop in order to append all new without mask image values
+for image in os.listdir(newWithoutDir):
+    # every 10 increments, update the bar
+    if counter % 10 == 0:
+        progressBar.barMethod1(i + 1, 1000, prefix='Optimizing Images... ', suffix='Complete', length=50,
+                               time=float(totalTime))
+        i += 1
+    imageMain = cv2.imread(newWithoutDir + image)  # read the image from the directory
+    noMaskSet.append((imageMain, 'no mask'))  # append the array image value and label to the maskSet list
+    counter += 1  # increment counter by 1
+    end = time.time()  # end time
+    totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
+
+# say that the images got imported
+print('Images Imported')
+
+# creates a final dataset with all shuffled labels ('mask' & 'no mask') and 20k image arrays
+# finalSet = ([image array values], label) x 20000
+finalSet = random.sample((noMaskSet + maskSet), 20000)
+
