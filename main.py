@@ -9,7 +9,6 @@ import random
 # this code is supposed to append all the array values of the 20k images
 # it has added progress bars to show the progress so far
 
-
 # directories with 256 x 256 grayscale images
 # Pranav directories
 newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
@@ -77,3 +76,7 @@ print('Images Imported')
 # creates a final dataset with all shuffled labels ('mask' & 'no mask') and 20k image arrays
 # finalSet = ([image array values], label) x 20000
 finalSet = random.sample((noMaskSet + maskSet), 20000)
+
+# test and train split, based on the total length of finalSet (static)
+test = finalSet[0:16000]
+train = finalSet[16000:20000]
