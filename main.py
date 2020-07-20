@@ -10,13 +10,13 @@ import random
 # it has added progress bars to show the progress so far
 
 # directories with 256 x 256 grayscale images
-# Pranav directories
-newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
-newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
+# Pranav Directories
+# newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
+# newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
 
-# Lavik directories
-# newWithoutDir = nothing now
-# newWithDir = nothing now
+# Lavik Directories
+newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
+newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
 
 # declare a mask set and no mask set array to append image values to
 noMaskSet = []
@@ -76,7 +76,3 @@ print('Images Imported')
 # creates a final dataset with all shuffled labels ('mask' & 'no mask') and 20k image arrays
 # finalSet = ([image array values], label) x 20000
 finalSet = random.sample((noMaskSet + maskSet), 20000)
-
-# test and train split, based on the total length of finalSet (static)
-test = finalSet[0:16000]
-train = finalSet[16000:20000]
