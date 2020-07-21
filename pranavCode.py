@@ -6,6 +6,8 @@ import time
 import cv2
 import os
 import numpy as np
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+from tensorflow.keras.preprocessing.image import img_to_array
 import matplotlib.pyplot as plt
 
 ap = argparse.ArgumentParser()
@@ -24,12 +26,13 @@ net = cv2.dnn.readNet(prototxtPath, weightsPath)
 
 
 def myImage(img):
-    # construct a blob from the image
-    blob = cv2.dnn.blobFromImage(img, 1.0, (256, 256))
+    blob = cv2.dnn.blobFromImage(img, 1.0, (256, 256), (104.0, 177.0, 123.0))
     # pass the blob through the network and obtain the face detections
     print("Computing face detections...")
     net.setInput(blob)
     detections = net.forward()
+    print(detections.shape)
+    detections = detections[0]
     plt.imshow(detections)
     plt.show()
     # cv2.imwrite('C:/Users/Singaraju/Documents/GitHub/Fask-Mask-Detection/images/', detections)
