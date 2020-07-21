@@ -74,5 +74,5 @@ for image in os.listdir(newWithoutDir):
 print('Images Imported')
 
 # creates a final dataset with all shuffled labels ('mask' & 'no mask') and 20k image arrays
-# finalSet = ([image array values], label) x 20000
+# finalSet = ([image list values], label) x 20000
 finalSet = random.sample((noMaskSet + maskSet), 20000)
