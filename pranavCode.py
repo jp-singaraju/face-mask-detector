@@ -6,6 +6,7 @@ import time
 import cv2
 import os
 import numpy as np
+import matplotlib.pyplot as plt
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-f", "--face", type=str,
@@ -23,13 +24,15 @@ net = cv2.dnn.readNet(prototxtPath, weightsPath)
 
 
 def myImage(img):
-    image = cv2.imread(img)
     # construct a blob from the image
-    blob = cv2.dnn.blobFromImage(image, 1.0, (300, 300), (104.0, 177.0, 123.0))
+    blob = cv2.dnn.blobFromImage(img, 1.0, (256, 256))
     # pass the blob through the network and obtain the face detections
-    print("[INFO] computing face detections...")
+    print("Computing face detections...")
     net.setInput(blob)
     detections = net.forward()
+    plt.imshow(detections)
+    plt.show()
+    # cv2.imwrite('C:/Users/Singaraju/Documents/GitHub/Fask-Mask-Detection/images/', detections)
 
 
 # initialize the video stream and allow the camera sensor to warm up
@@ -41,12 +44,13 @@ frame = vs.read()
 
 key = 'a'
 
-while key != ord('q'):
+while key != 'q':
     frame = vs.read()
     # show the output frame
     myImage(frame)
     cv2.imshow("Frame", frame)
     key = cv2.waitKey(1) & 0xFF
+    key = 'q'
 
 cv2.destroyAllWindows()
 vs.stop()
