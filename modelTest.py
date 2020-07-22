@@ -1,13 +1,61 @@
 # from tensorflow.keras.models import Sequential
-# from tensorflow.keras.layers import Dense, Activation, Flatten, Dropout, Conv2D, MaxPooling2D
+from tensorflow.keras.layers import Dense, AveragePooling2D, Flatten, Dropout
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.layers import Input
 from tensorflow.keras.applications import MobileNetV2
-
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from main import finalSet
 
-base_model = MobileNetV2(weights='imagenet', include_top=False, input_tensor=Input(shape=(224, 224, 3)))
+trainSet = finalSet[:16000]
+testSet = finalSet[16000:]
 
-INIT_LR = 1e-6
+trainX = []
+trainY = []
+testX = []
+testY = []
+
+for tup in trainSet:
+    trainX.append(tup[0])
+    trainY.append(tup[1])
+for tup2 in testSet:
+    testX.append(tup2[0])
+    testY.append(tup2[1])
+
+INIT_LR = 1e-4
 EPOCHS = 30
-BATCH_SIZE = 32
+BS = 32
 
+baseModel = MobileNetV2(input_shape=(256, 256, 3), weights='imagenet', include_top=False,)
+
+headModel = baseModel.output
+headModel = AveragePooling2D(pool_size=(7, 7))(headModel)
+headModel = Flatten(name="flatten")(headModel)
+headModel = Dense(128, activation="relu")(headModel)
+headModel = Dropout(0.5)(headModel)
+headModel = Dense(2, activation="softmax")(headModel)
+
+model = Model(inputs=baseModel.input, outputs=headModel)
+for layer in baseModel.layers:
+    layer.trainable = False
+
+print("[INFO] compiling model...")
+opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
+model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
+
+aug = ImageDataGenerator(
+    rotation_range=20,
+    zoom_range=0.15,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    shear_range=0.15,
+    horizontal_flip=True,
+    fill_mode="nearest")
+
+print("[INFO] training head...")
+H = model.fit(
+    aug.flow(trainX, trainY, batch_size=BS),
+    steps_per_epoch=len(trainX) // BS,
+    validation_data=(testX, testY),
+    validation_steps=len(testX) // BS,
+    epochs=EPOCHS)

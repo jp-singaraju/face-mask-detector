@@ -13,12 +13,12 @@ import random
 
 # directories with 256 x 256 grayscale images
 # Pranav Directories
-# newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
-# newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
+newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
+newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
 
 # Lavik Directories
-newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
-newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
+# newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
+# newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
 
 # declare a mask set and no mask set array to append image values to
 noMaskSet = []
