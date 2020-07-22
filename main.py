@@ -13,12 +13,12 @@ import random
 
 # directories with 256 x 256 grayscale images
 # Pranav Directories
-# newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
-# newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
+newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
+newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
 
 # Lavik Directories
-newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
-newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
+# newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
+# newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
 
 # declare a mask set and no mask set array to append image values to
 noMaskSet = []
@@ -45,7 +45,7 @@ for image in os.listdir(newWithDir):
                                time=float(totalTime))
         i += 1
     imageMain = cv2.imread(newWithDir + image)  # read the image from the directory
-    maskSet.append(imageMain)  # append the array image value to the maskSet list
+    maskSet.append((imageMain, 'mask'))  # append the array image value and label to the maskSet list
     counter += 1  # increment counter by 1
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
@@ -67,7 +67,7 @@ for image in os.listdir(newWithoutDir):
                                time=float(totalTime))
         i += 1
     imageMain = cv2.imread(newWithoutDir + image)  # read the image from the directory
-    noMaskSet.append(imageMain)  # append the array image value to the maskSet list
+    noMaskSet.append((imageMain, 'no mask'))  # append the array image value and label to the maskSet list
     counter += 1  # increment counter by 1
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
@@ -76,7 +76,7 @@ for image in os.listdir(newWithoutDir):
 print('Images Imported')
 
 # creates a final dataset with all shuffled labels ('mask' & 'no mask') and 20k image arrays
-# finalSet = ([image list values]) x 20000
+# finalSet = ([image list values], label) x 20000
 finalSet = random.sample((noMaskSet + maskSet), 20000)
 
 # begin model here below

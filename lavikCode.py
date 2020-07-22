@@ -11,16 +11,16 @@ import random
 
 # directories with 256 x 256 grayscale images
 # Pranav Directories
-# newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
-# newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
+newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
+newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
 
 # Lavik Directories
-newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
-newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
+# newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
+# newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
 
 # declare train and test datasets
-train = set()
-test = set()
+train = []
+test = []
 
 # time, i = 0
 totalTime = 0.0
@@ -42,7 +42,7 @@ for counter in range(8000):
                                time=float(totalTime))
         i += 1
     imageMain = cv2.imread(newWithDir + os.listdir(newWithDir)[counter])  # read the image from the directory
-    train.add((imageMain, 'mask'))  # add the array image value and label to the train set
+    train.append((imageMain, 'mask'))  # add the array image value and label to the train set
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
 
@@ -54,7 +54,7 @@ for counter in range(8000, 10000):
                                time=float(totalTime))
         i += 1
     imageMain = cv2.imread(newWithDir + os.listdir(newWithDir)[counter])  # read the image from the directory
-    test.add((imageMain, 'mask'))  # add the array image value and label to the test set
+    test.append((imageMain, 'mask'))  # add the array image value and label to the test set
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
 
@@ -74,7 +74,7 @@ for counter in range(8000):
                                time=float(totalTime))
         i += 1
     imageMain = cv2.imread(newWithoutDir + os.listdir(newWithoutDir)[counter])  # read the image from the directory
-    train.add((imageMain, 'no mask'))  # add the array image value and label to the train set
+    train.append((imageMain, 'no mask'))  # add the array image value and label to the train set
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
 
@@ -86,7 +86,7 @@ for counter in range(8000, 10000):
                                time=float(totalTime))
         i += 1
     imageMain = cv2.imread(newWithoutDir + os.listdir(newWithoutDir)[counter])  # read the image from the directory
-    test.add((imageMain, 'no mask'))  # add the array image value and label to test set
+    test.append((imageMain, 'no mask'))  # add the array image value and label to test set
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
 
