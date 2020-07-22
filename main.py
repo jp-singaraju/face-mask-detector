@@ -8,6 +8,8 @@ import random
 
 # this code is supposed to append all the array values of the 20k images
 # it has added progress bars to show the progress so far
+# this file is also for the model to be added below the pre-processing
+# pre-processing couldn't be in another file because creating binary .npy files made it to large to push to github
 
 # directories with 256 x 256 grayscale images
 # Pranav Directories
@@ -21,6 +23,10 @@ newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_
 # declare a mask set and no mask set array to append image values to
 noMaskSet = []
 maskSet = []
+
+# declare a labels list
+labels = ['mask'] * 10000
+labels += ['no mask'] * 10000
 
 # time, counter, i = 0
 totalTime = 0.0
@@ -43,7 +49,7 @@ for image in os.listdir(newWithDir):
                                time=float(totalTime))
         i += 1
     imageMain = cv2.imread(newWithDir + image)  # read the image from the directory
-    maskSet.append((imageMain, 'mask'))  # append the array image value and label to the maskSet list
+    maskSet.append(imageMain)  # append the array image value to the maskSet list
     counter += 1  # increment counter by 1
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
@@ -65,7 +71,7 @@ for image in os.listdir(newWithoutDir):
                                time=float(totalTime))
         i += 1
     imageMain = cv2.imread(newWithoutDir + image)  # read the image from the directory
-    noMaskSet.append((imageMain, 'no mask'))  # append the array image value and label to the maskSet list
+    noMaskSet.append(imageMain)  # append the array image value to the maskSet list
     counter += 1  # increment counter by 1
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
@@ -76,3 +82,5 @@ print('Images Imported')
 # creates a final dataset with all shuffled labels ('mask' & 'no mask') and 20k image arrays
 # finalSet = ([image list values], label) x 20000
 finalSet = random.sample((noMaskSet + maskSet), 20000)
+
+# begin model here below
