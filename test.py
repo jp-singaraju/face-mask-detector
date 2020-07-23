@@ -1,6 +1,7 @@
 from keras.models import load_model
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
 model = load_model('model-020.model')
 face_clsfr = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -13,6 +14,7 @@ color_dict = {1: (0, 255, 0), 0: (0, 0, 255)}
 while True:
     ret, img = source.read()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    print(gray.shape)
     faces = face_clsfr.detectMultiScale(gray, 1.3, 5)
 
     for x, y, w, h in faces:

@@ -72,9 +72,6 @@ for image in os.listdir(newWithoutDir):
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
 
-# say that the images got imported
-print('Images Imported')
-
 # creates a final dataset with all shuffled labels ('mask' & 'no mask') and 20k image arrays
 # finalSet = ([image list values], label) x 20000
 finalSet = random.sample((noMaskSet + maskSet), 20000)
