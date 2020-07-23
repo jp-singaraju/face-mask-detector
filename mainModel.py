@@ -1,6 +1,5 @@
 import os
 import numpy as np
-from sklearn.model_selection import train_test_split
 import main
 
 # don't show any warnings
@@ -9,8 +8,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from tensorflow import keras
 from keras.callbacks import ModelCheckpoint
 
-data = np.array(main.data)
-target = np.array(main.labels)
+data = np.asarray(main.data)
+target = np.asarray(main.labels)
 
 print('retrieved lists...')
 
@@ -20,18 +19,20 @@ print('building model...')
 
 model.add(keras.layers.Flatten(input_shape=data.shape[1:]))
 model.add(keras.layers.Dense(1000, activation='tanh'))
-model.add(keras.layers.Dropout(0.2))
 model.add(keras.layers.Dense(500, activation='tanh'))
 model.add(keras.layers.Dense(20, activation='tanh'))
-model.add(keras.layers.Dense(1, activation='sigmoid'))
+model.add(keras.layers.Dense(2, activation='softmax'))
 
 print('compiling model...')
 
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.compile(optimizer=keras.optimizers.Adam(lr=1e-6), loss='binary_crossentropy', metrics=['accuracy'])
 
 print('splitting data...')
 
-train_data, test_data, train_target, test_target = train_test_split(data, target, test_size=0.2)
+train_data = data[16000:]
+train_target = target[16000:]
+test_data = data[:16000]
+test_target = target[:16000]
 
 print('saving model...')
 
