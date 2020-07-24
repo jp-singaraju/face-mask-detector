@@ -7,8 +7,9 @@ from keras.models import load_model
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import tensorflow as tf
 
-model = load_model('model-001.model')
+model = load_model('updated-model001.model')
 face_clsfr = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 source = cv2.VideoCapture(0)
@@ -19,22 +20,16 @@ color_dict = {1: (0, 255, 0), 0: (0, 0, 255)}
 while True:
     img = source.read()
     img = np.array(img[1])
-    img = cv2.resize(img, (224, 224))
     # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_clsfr.detectMultiScale(img, 1.3, 5)
 
     for x, y, w, h in faces:
         face_img = img[y:y + w, x:x + w]
         face_img = cv2.resize(face_img, (224, 224))
-        print(np.array(face_img).shape)
-        face_img = np.reshape(face_img,  (224, 224, 3))
-        plt.imshow(face_img)
-        plt.show()
-        # normalized = face_img / 255.0
+        face_img = np.array(face_img, dtype=np.float32)
+        face_img = tf.expand_dims(face_img, 0)
         result = model.predict(face_img)
-
         label = np.argmax(result, axis=1)[0]
-
         cv2.rectangle(img, (x, y), (x + w, y + h), color_dict[label], 2)
         cv2.rectangle(img, (x, y - 40), (x + w, y), color_dict[label], -1)
         cv2.putText(

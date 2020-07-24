@@ -5,35 +5,33 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 from keras.models import load_model
-import tensorflow as tf
-import cv2
 import numpy as np
-import matplotlib.pyplot as plt
-from main import data, labels
+from keras_preprocessing.image import load_img
+from tensorflow.python.keras.applications.mobilenet_v2 import preprocess_input
+from tensorflow.python.keras.preprocessing.image import img_to_array
+from main import testX, testY
 
-model = load_model('face_detection_model')
+model = load_model('updated-model001.model')
 
-# img = cv2.imread('C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/with-mask-default-mask-seed0000.png')
+# img = load_img('C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/with-mask-default-mask-seed0000.png')
+# img = img_to_array(img)
+# img = preprocess_input(img)
 # img = np.array(img, dtype=np.float32)
 # print(img.shape)
-# img = tf.expand_dims(img, 0)
+# img = np.expand_dims(img, axis=0)
 # print(img.shape)
-# result = model.predict(img)
-# predIdxs = np.argmax(result, axis=1)
-# print(predIdxs)
-#
-testX = np.array(data[16000:], dtype=np.float32)
-testY = np.array(labels[16000:])
+# (mask, noMask) = model.predict(img)[0]
+# print('mask') if mask > noMask else print('no mask')
 
-result = model.predict(testX)
-predIdxs = np.argmax(result, axis=1)
-print(predIdxs[:500])
-print('\n')
-print(testY[:500])
-diff = []
+testX = np.array(testX[:2000])
+testY = np.array(testY[:2000])
+pred = model.predict(testX)
+pred = np.argmax(pred, axis=1)
+print(pred)
 
-for i in range(len(testY[:500])):
-    if testY[i] != predIdxs[i]:
-        diff.append(testY[i])
+counter = 0
+for i in range(len(testY)):
+    if testY[i] != pred[i]:
+        counter += 1
 
-print(len(diff))
+print(counter)

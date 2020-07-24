@@ -1,10 +1,14 @@
 # import the packages listed below
 from os import system
 import os
-import cv2
 import progressBar
 import time
 import random
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+from tensorflow.python.keras.applications.mobilenet_v2 import preprocess_input
+from tensorflow.python.keras.preprocessing.image import load_img, img_to_array
 
 # this code is supposed to append all the array values of the 20k images
 # it has added progress bars to show the progress so far
@@ -20,8 +24,9 @@ newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_
 # newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
 # newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
 
-# declare an empty data list
-images = []
+# declare an empty list for no-mask and mask
+maskSet = []
+noMaskSet = []
 
 # time, counter, i = 0
 totalTime = 0.0
@@ -43,8 +48,10 @@ for image in os.listdir(newWithDir):
         progressBar.barMethod1(i + 1, 1000, prefix='Loading Faces... ', suffix='Complete', length=50,
                                time=float(totalTime))
         i += 1
-    imageMain = cv2.imread(newWithDir + image)  # read the image from the directory
-    images.append((imageMain, 1))  # append the list of image value and label to the data list
+    imageMain = load_img(newWithDir + image)
+    imageMain = img_to_array(imageMain)
+    imageMain = preprocess_input(imageMain)
+    maskSet.append((imageMain, 'mask'))  # append the list of image value and label to the data list
     counter += 1  # increment counter by 1
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
@@ -65,22 +72,33 @@ for image in os.listdir(newWithoutDir):
         progressBar.barMethod1(i + 1, 1000, prefix='Optimizing Images... ', suffix='Complete', length=50,
                                time=float(totalTime))
         i += 1
-    imageMain = cv2.imread(newWithoutDir + image)  # read the image from the directory
-    images.append((imageMain, 0))  # append the list of image value and label to the data list
+    imageMain = load_img(newWithoutDir + image)
+    imageMain = img_to_array(imageMain)
+    imageMain = preprocess_input(imageMain)
+    noMaskSet.append((imageMain, 'no mask'))  # append the list of image value and label to the data list
     counter += 1  # increment counter by 1
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
 
+data = noMaskSet[:5000] + maskSet[5000:]
+test = noMaskSet[5000:] + maskSet[:5000]
+
 # shuffle the list in place
-random.shuffle(images)
+random.shuffle(data)
+random.shuffle(test)
 
 # declare the data and target lists
-data = []
-labels = []
+dataX = []
+dataY = []
+testX = []
+testY = []
 
-# split the finalSet into data and labels
-# no mask = 0 & mask = 1
-for i in images:
-    data.append(i[0])
-for i in images:
-    labels.append(i[1])
+# split the images list into data and labels
+for i in data:
+    dataX.append(i[0])
+for i in data:
+    dataY.append(i[1])
+for i in test:
+    testX.append(i[0])
+for i in test:
+    testY.append(i[1])
