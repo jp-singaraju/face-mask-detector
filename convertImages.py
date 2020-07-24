@@ -16,18 +16,18 @@ import time
 # get the directory for the files
 
 # Pranav Directories
-
-withoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/without_mask/'
-withDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/with_mask/'
-newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
-newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
+#
+# withoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/without_mask/'
+# withDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/with_mask/'
+# newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
+# newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
 
 # Lavik Directories
 
-# withoutDir = 'D:/Face Mask Detection Dataset/without_mask/'
-# withDir = 'D:/Face Mask Detection Dataset/with_mask/'
-# newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
-# newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
+withoutDir = 'D:/Face Mask Detection Dataset/without_mask/'
+withDir = 'D:/Face Mask Detection Dataset/with_mask/'
+newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
+newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
 
 # initialize the time variable
 totalTime = 0
