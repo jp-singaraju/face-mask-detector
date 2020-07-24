@@ -24,13 +24,13 @@ lb = LabelBinarizer()
 dataY = lb.fit_transform(dataY)
 dataY = to_categorical(dataY)
 
-trainX = dataX[:7000]
-trainY = dataY[:7000]
-testX = dataX[6500:]
-testY = dataY[6500:]
+trainX = dataX[:8000]
+trainY = dataY[:8000]
+testX = dataX[8000:]
+testY = dataY[8000:]
 
 INIT_LR = 1e-5
-EPOCHS = 5
+EPOCHS = 15
 BS = 5
 
 aug = ImageDataGenerator(
@@ -41,7 +41,8 @@ aug = ImageDataGenerator(
     shear_range=0.15,
     horizontal_flip=True,
     vertical_flip=True,
-    fill_mode="nearest")
+    fill_mode="nearest"
+)
 
 print('converted data...')
 
@@ -53,7 +54,6 @@ headModel = baseModel.output
 headModel = tensorflow.keras.layers.AveragePooling2D(pool_size=(2, 2))(headModel)
 headModel = tensorflow.keras.layers.Flatten(name="flatten")(headModel)
 headModel = tensorflow.keras.layers.Dense(512, activation="relu")(headModel)
-# headModel = tensorflow.keras.layers.Dense(128, activation="relu")(headModel)
 headModel = tensorflow.keras.layers.Dropout(0.5)(headModel)
 headModel = tensorflow.keras.layers.Dense(2, activation="softmax")(headModel)
 
@@ -69,20 +69,16 @@ print('training model...')
 model.compile(loss="binary_crossentropy", optimizer=Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS), metrics=["accuracy"])
 
 checkpoint = ModelCheckpoint(
-    'updated-model{epoch:03d}.model',
+    'face-mask-detection-{epoch:03d}.model',
     monitor='val_loss',
     verbose=2,
     save_best_only=True,
-    mode='auto')
+    mode='auto'
+)
 
 H = model.fit(
     aug.flow(trainX, trainY, batch_size=BS),
-    # steps_per_epoch=len(trainX) // BS,
     validation_data=(testX, testY),
-    # validation_steps=len(testX) // BS,
     epochs=EPOCHS,
     callbacks=[checkpoint]
 )
-
-print(model.evaluate(trainX, trainY))
-# model.save('face_detection_model')
