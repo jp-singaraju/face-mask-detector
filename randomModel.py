@@ -42,12 +42,9 @@ print('freeze base model...')
 
 INIT_LR = 1e-4
 EPOCHS = 5
-BS = 32
+BS = 50  # trained with 32 in face_detection_model
 
 print('training model...')
-
-model.compile(loss="binary_crossentropy", optimizer=Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS), metrics=["accuracy"])
-
 aug = ImageDataGenerator(
     rotation_range=20,
     zoom_range=0.15,
@@ -58,10 +55,12 @@ aug = ImageDataGenerator(
     vertical_flip=True,
     fill_mode="nearest")
 
+model.compile(loss="binary_crossentropy", optimizer=Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS), metrics=["accuracy"])
+
 checkpoint = ModelCheckpoint(
     'model-{epoch:03d}.model',
     monitor='val_loss',
-    verbose=2,
+    verbose=0,
     save_best_only=True,
     mode='auto')
 
@@ -73,6 +72,5 @@ H = model.fit(
     epochs=EPOCHS,
     callbacks=[checkpoint])
 
-print('testing model...')
-
 print(model.evaluate(trainX, trainY))
+# model.save('face_detection_model')
