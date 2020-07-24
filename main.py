@@ -20,9 +20,8 @@ newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_
 # newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
 # newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
 
-# declare a mask set and no mask set array to append image values to
-noMaskSet = []
-maskSet = []
+# declare an empty data list
+images = []
 
 # time, counter, i = 0
 totalTime = 0.0
@@ -45,7 +44,7 @@ for image in os.listdir(newWithDir):
                                time=float(totalTime))
         i += 1
     imageMain = cv2.imread(newWithDir + image)  # read the image from the directory
-    maskSet.append((imageMain, 1))  # append the array image value and label to the maskSet list
+    images.append((imageMain, 1))  # append the list of image value and label to the data list
     counter += 1  # increment counter by 1
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
@@ -67,14 +66,13 @@ for image in os.listdir(newWithoutDir):
                                time=float(totalTime))
         i += 1
     imageMain = cv2.imread(newWithoutDir + image)  # read the image from the directory
-    noMaskSet.append((imageMain, 0))  # append the array image value and label to the maskSet list
+    images.append((imageMain, 0))  # append the list of image value and label to the data list
     counter += 1  # increment counter by 1
     end = time.time()  # end time
     totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
 
-# creates a final dataset with all shuffled labels ('mask' & 'no mask') and 20k image arrays
-# finalSet = ([image list values], label) x 20000
-finalSet = random.sample((noMaskSet + maskSet), 20000)
+# shuffle the list in place
+random.shuffle(images)
 
 # declare the data and target lists
 data = []
@@ -82,7 +80,7 @@ labels = []
 
 # split the finalSet into data and labels
 # no mask = 0 & mask = 1
-for i in finalSet:
+for i in images:
     data.append(i[0])
-for i in finalSet:
+for i in images:
     labels.append(i[1])

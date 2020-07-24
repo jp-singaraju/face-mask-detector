@@ -30,7 +30,7 @@ headModel = tensorflow.keras.layers.AveragePooling2D(pool_size=(7, 7))(headModel
 headModel = tensorflow.keras.layers.Flatten(name="flatten")(headModel)
 headModel = tensorflow.keras.layers.Dense(128, activation="relu")(headModel)
 headModel = tensorflow.keras.layers.Dropout(0.5)(headModel)
-headModel = tensorflow.keras.layers.Dense(2, activation="softmax")(headModel)
+headModel = tensorflow.keras.layers.Dense(1, activation="sigmoid")(headModel)
 
 print('built head model...')
 
@@ -41,8 +41,8 @@ for layer in baseModel.layers:
 print('freeze base model...')
 
 INIT_LR = 1e-4
-EPOCHS = 30
-BS = 20
+EPOCHS = 5
+BS = 32
 
 print('training model...')
 
