@@ -4,7 +4,7 @@ import os
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 import numpy as np
 from keras_preprocessing.image import load_img
 from tensorflow.python.keras.applications.mobilenet_v2 import preprocess_input
