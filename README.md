@@ -16,13 +16,21 @@ The first step is to obtain a dataset. We retrieved it from *Prasoon Kottarathil
 
 We ran this conversion by creating the convert_images.py file. If you want to use *Prasoon's* dataset please use convert_images.py to convert the images and then proceed. Please follow along with the comments in the code, to guide you. You do not need to run convert_images.py if you use either of the two kaggle links (224 x 224 grayscale images dataset) provided above. This conversion step is for people who want to use *Prasoon's* dataset and run it from the beginning.
 
+<p align="center">
+  <img src="https://docs.google.com/drawings/d/e/2PACX-1vS53Lc61_LGZeOPqavdQvjss4vHrN9Gf6bfe79hP_gE548xhIZgTwr2n0Da46yVhKxwpLJOniUQ_boG/pub?w=762&h=649">
+ </p>
+ 
 ### Step 2
 #### Load the Images and Pre-Process:
 This is the next step after you have received and unzipped the datasets from the kaggle link. At this point, you should have two directories for the 224 x 224 images (one for mask and one for no mask). Follow along with the comments in process_data.py in order to understand the process. It describes the code step-by-step, making it easy to understand. This file basically pre-processes the images and puts them into arrays to be used later when training the model. We made our own progress bar to show the progress of importing the images. The file, progress_bar.py, has the code to the progress bar and is also completely commented to explain the steps.
 
 ### Step 3
 #### Train the Model:
-After preprocesssing the data, saving the pixel values into arrays, and storing labels, we can begin to make the model. Once again, the code uses a MobileNetV2 architecture, which is meant to have good accuracy rates. Is combines a base model with layers that you can choose to use in order to make the model optimized. The testing and training split also occurs here, as we are doing an 80/20 (training/testing) split. We experimented with the learning rate, epochs, and batch size in order to best fit our data. This does take some time, please be patient. Additionally, the model uses data augmentation to improve the model accuracy, because it trains the model against a couple of random images, in order to ensure that it can detect images in random cases. The explanation for the whole model can be seen in the comments of main_model.py. Lastly, the model stores the accuracy, loss, and some more data for the best epoch and saves that model into your current working directory. We have already made the model and trained it, so need to be done on your behalf. However, if you do want to retrain the model with our data, or even your data, check the split ratio and experiment with the model params. All the code is explained very clearly in main_model.py so it should be easy to get the significance of each line. You don't have to run main_model.py if you want to just test it with your own images. All you have to do if you want to test is to run video_testing.py.
+After preprocesssing the data, saving the pixel values into arrays, and storing labels, we can begin to make the model. Once again, the code uses a MobileNetV2 architecture, which is meant to have good accuracy rates. Is combines a base model with layers that you can choose to use in order to make the model optimized. The testing and training split also occurs here, as we are doing an 80/20 (training/testing) split. We experimented with the learning rate, epochs, and batch size in order to best fit our data. This does take some time, please be patient. Additionally, the model uses data augmentation to improve the model accuracy, because it trains the model against a couple of random images, in order to ensure that it can detect images in random cases. The explanation for the whole model can be seen in the comments of main_model.py. Lastly, the model stores the accuracy, loss, and some more data for the best epoch and saves that model into your current working directory. We have already made the model and trained it, so need to be done on your behalf. However, if you do want to retrain the model with our data, or even your data, check the split ratio and experiment with the model params. All the code is explained very clearly in main_model.py so it should be easy to get the significance of each line. You don't have to run main_model.py if you want to just test it with your own images. All you have to do if you want to test is to run video_testing.py. The architecture of our model is below:
+
+<p align="center">
+  <img src="https://docs.google.com/drawings/d/e/2PACX-1vRHXy676k_VvCpqb0PR7O0BW9mslYivTk5TeRd2uqOU_WJrXfYGdu3uLSdokpqLv1Cb9qqoXB1DKQiT/pub?w=800&h=715">
+ </p>
 
 ### Step 4
 #### Testing the Model:
@@ -31,7 +39,7 @@ This is the only step that you need to perform on your behalf if you want to run
 ### Extra
 #### Notes:
 <ul>
-<li><p>When you decide to fork this repo and work on it, please cite this github repo link and either of our dataset links for credibility and copyright purposes.</p></li>
+<li><p>When you decide to fork this repo and work on it, please cite this github repo link and either of our dataset links for credibility and copyright purposes. Before using our dataset, please read over the license link below.</p></li>
 <li><p>Please read the comments in the code in order to completely get an understanding of what this model does and its purpose. The comments are very detailed and should explain what each line's significance and purpose are.</p></li>
 <li><p>Please feel free to fork this repo and share it! Thank You!</p></li>
 </ul>
@@ -47,8 +55,13 @@ This is the only step that you need to perform on your behalf if you want to run
 <li><p>This GitHub Link: https://github.com/jp-singaraju/Face-Mask-Detection</p></li>
 <li><p>Lavik Jain Kaggle Link: https://www.kaggle.com/luka77/facemask-detection-dataset-20000-images</p></li>
 <li><p>Pranav Singaraju Kaggle Link: https://www.kaggle.com/pranavsingaraju/facemask-detection-dataset-20000-images</p></li>
+<li><p>Prasoon Kottarathil Kaggle Link: https://www.kaggle.com/prasoonkottarathil/face-mask-lite-dataset</p></li>
+<li><p>Adrian Rosebrock PyImageSearch Link: https://www.pyimagesearch.com/2020/05/04/covid-19-face-mask-detector-with-opencv-keras-tensorflow-and-deep-learning</p></li>
 <li><p>Dataset License Link (CC BY-SA 4.0): https://creativecommons.org/licenses/by-sa/4.0</p></li>
 </ul>
 
 ## Demo
 Below is our demo of the model working and additional resources from our presentation and video.
+
+Presentation link is [here](https://docs.google.com/presentation/d/1g_97E7p7wfVq2Mczl9HXV0UFrqwkSsLMKyvj1OaXrs0/edit?usp=sharing).
+Video link will be attached later...
