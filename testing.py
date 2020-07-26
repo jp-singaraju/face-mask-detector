@@ -6,7 +6,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 from keras_preprocessing.image import img_to_array
 from tensorflow.python.keras.applications.mobilenet_v2 import preprocess_input
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 
 maskModel = load_model('mask-detection.model')
 
