@@ -5,31 +5,29 @@ import progress_bar
 import time
 import random
 
+# take off and don't show all the warnings for running tf in terminal
+# have to import before getting tf/keras modules
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
+# import the following tf/keras packages
 from tensorflow.python.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.python.keras.preprocessing.image import load_img, img_to_array
 
-# this code is supposed to append all the array values of the 20k images
-# it has added progress bars to show the progress so far
-# this file is also for the model to be added below the pre-processing
-# pre-processing couldn't be in another file because creating binary .npy files made it to large to push to github
+# this code is supposed to append all the array values of the 20k images into the specified data lists
+# it has added progress bars to show the progress so far when receiving the values
+# this file is mainly for pre-processing all the data to be used in the main_model.py file
 
-# directories with 256 x 256 grayscale images
-# Pranav Directories
-newWithoutDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_without_mask/'
-newWithDir = 'C:/Users/Singaraju/Desktop/Face Mask Detection Data/20k_faces/new_with_mask/'
-
-# Lavik Directories
-# newWithoutDir = 'D:/Face Mask Detection Dataset/new_without_mask/'
-# newWithDir = 'D:/Face Mask Detection Dataset/new_with_mask/'
+# directories with 224 x 224 grayscale images, use the directories previously created by you, after unzipping and converting, or downloading
+# after doing what is said above, uncomment the bottom two lines
+# new_without_dir = your new directory where your updated no mask images are (224 x 224 grayscale)
+# new_with_dir = your new directory where your mask images are (224 x 224 grayscale)
 
 # declare an empty list for no-mask and mask
-maskSet = []
-noMaskSet = []
+mask_set = []
+no_mask_set = []
 
 # time, counter, i = 0
-totalTime = 0.0
+total_time = 0.0
 counter = 0
 i = 0
 
@@ -39,66 +37,73 @@ system('cls')  # clear the screen/console on call
 start = time.time()  # start the timer
 
 # bar method with reading the image for the 10k images with a mask
-progress_bar.barMethod1(0, 1000, prefix='Loading Faces... ', suffix='Complete', length=50, time=0)
+progress_bar.bar_method(0, 1000, prefix='Loading Faces... ', suffix='Complete', length=50, time=0)
 
 # loop in order to append all new mask image values
-for image in os.listdir(newWithDir):
+for image in os.listdir(new_with_dir):
     # every 10 increments, update the bar
     if counter % 10 == 0:
-        progress_bar.barMethod1(i + 1, 1000, prefix='Loading Faces... ', suffix='Complete', length=50,
-                                time=float(totalTime))
+        progress_bar.bar_method(i + 1, 1000, prefix='Loading Faces... ', suffix='Complete', length=50,
+                                time=float(total_time))
         i += 1
-    imageMain = load_img(newWithDir + image)
-    imageMain = img_to_array(imageMain)
-    imageMain = preprocess_input(imageMain)
-    maskSet.append((imageMain, 'mask'))  # append the list of image value and label to the data list
+    image_main = load_img(new_with_dir + image)  # load the specified image from the directory
+    image_main = img_to_array(image_main)  # convert the image to a numpy array
+    image_main = preprocess_input(image_main)  # pre-process the input based on the MobileNetV2 model
+    mask_set.append((image_main, 'mask'))  # append the list of image value and label to the data list
     counter += 1  # increment counter by 1
     end = time.time()  # end time
-    totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
+    total_time = float(end - start)  # total_time now equals the end value minus beginning value
 
 # time, counter, i = 0
-totalTime = 0.0
+total_time = 0.0
 counter = 0
 i = 0
 start = time.time()  # start the timer
 
 # bar method with reading the image for the 10k images with a mask
-progress_bar.barMethod1(0, 1000, prefix='Optimizing Images... ', suffix='Complete', length=50, time=0)
+progress_bar.bar_method(0, 1000, prefix='Optimizing Images... ', suffix='Complete', length=50, time=0)
 
 # loop in order to append all new without mask image values
-for image in os.listdir(newWithoutDir):
+for image in os.listdir(new_without_dir):
     # every 10 increments, update the bar
     if counter % 10 == 0:
-        progress_bar.barMethod1(i + 1, 1000, prefix='Optimizing Images... ', suffix='Complete', length=50,
-                                time=float(totalTime))
+        progress_bar.bar_method(i + 1, 1000, prefix='Optimizing Images... ', suffix='Complete', length=50,
+                                time=float(total_time))
         i += 1
-    imageMain = load_img(newWithoutDir + image)
-    imageMain = img_to_array(imageMain)
-    imageMain = preprocess_input(imageMain)
-    noMaskSet.append((imageMain, 'no mask'))  # append the list of image value and label to the data list
+    image_main = load_img(new_without_dir + image)  # load the specified image from the directory
+    image_main = img_to_array(image_main)  # convert the image to a numpy array
+    image_main = preprocess_input(image_main)  # pre-process the input based on the MobileNetV2 model
+    no_mask_set.append((image_main, 'no mask'))  # append the list of image value and label to the data list
     counter += 1  # increment counter by 1
     end = time.time()  # end time
-    totalTime = float(end - start)  # totalTime now equals the end value minus beginning value
+    total_time = float(end - start)  # total_time now equals the end value minus beginning value
 
-data = noMaskSet[:5000] + maskSet[5000:]
-test = noMaskSet[5000:] + maskSet[:5000]
+# no_mask_set = 10k images & mask_set = 10k images
+# both sets have same people, and we don't want the people to overlap as it would mess the model up
+# get the first 5000 from no_mask_set and last 5000 from mask_set and set it equal to train
+# do the vice versa for test
+train = no_mask_set[:5000] + mask_set[5000:]
+test = no_mask_set[5000:] + mask_set[:5000]
 
-# shuffle the list in place
-random.shuffle(data)
+# shuffle the lists in place, so that you don't have the same labels of images in a row
+random.shuffle(train)
 random.shuffle(test)
 
-# declare the data and target lists
-dataX = []
-dataY = []
-testX = []
-testY = []
+# declare the train and test lists
+# train lists will be used to train the model and test lists could be used to test the model later
+# we really don't use the test lists
+train_x = []
+train_y = []
+test_x = []
+test_y = []
 
 # split the images list into data and labels
-for i in data:
-    dataX.append(i[0])
-for i in data:
-    dataY.append(i[1])
+# the train and test lists are organized like this -> ([image array values], label) * 10000
+for i in train:
+    train_x.append(i[0])
+for i in train:
+    train_y.append(i[1])
 for i in test:
-    testX.append(i[0])
+    test_x.append(i[0])
 for i in test:
-    testY.append(i[1])
+    test_y.append(i[1])
