@@ -60,7 +60,7 @@ data_aug = ImageDataGenerator(
 # print that the base model is being built
 print('building base model...')
 
-# set the base model to the MobileNetV2 model architecture with weights trained by imagenet dataset
+# set the base model to the MobileNetV2 model architecture with weights trained by the imagenet dataset
 # also, cut off the top layer
 base_model = MobileNetV2(input_shape=(train_x.shape[1:]), weights='imagenet', include_top=False)
 
@@ -78,12 +78,12 @@ main_model = tensorflow.keras.layers.AveragePooling2D(pool_size=(2, 2))(main_mod
 # this makes it easier for the model to process the inputs and outputs from neurons
 main_model = tensorflow.keras.layers.Flatten(name="flatten")(main_model)
 
-# dense layers are fully connected layers with (n * n) params
+# dense layers are fully connected layers
 # create a dense layer with 512 neurons and an activation function of relu and add it to main_model
 # this reduces the number of output params, allowing the model to reduce the number of inputs to next layer
 main_model = tensorflow.keras.layers.Dense(512, activation="relu")(main_model)
 
-# randomly dropout 50% of the neurons remaining, such that only 256 input neurons remain for next layer
+# a random half of the weights between the previous layer and the next layer will be temporarily made 0
 main_model = tensorflow.keras.layers.Dropout(0.5)(main_model)
 
 # process those 256 inputs into 2 final neurons (two classes = no mask and mask)
@@ -93,8 +93,8 @@ main_model = tensorflow.keras.layers.Dense(2, activation="softmax")(main_model)
 # create a model based on base_model.input and outputs as main_model
 model = Model(inputs=base_model.input, outputs=main_model)
 
-# freeze the base_model.layers in the original MobilNetV2 model
-# this makes the params and layers in the model untrainable
+# freeze the base_model.layers in the original MobileNetV2 model
+# this makes the params in the model untrainable
 for layer in base_model.layers:
     layer.trainable = False
 
@@ -103,7 +103,7 @@ print('training model...')
 
 # set loss to binary cross entropy since there are only 2 output classes
 # optimizer is Adam and decay is calculated based on the learning rate and epochs so that the model doesn't overshoot
-# testing on the metric of accuracy
+# training on the metric of accuracy
 model.compile(loss="binary_crossentropy", optimizer=Adam(lr=learning_rate, decay=learning_rate / epochs), metrics=["accuracy"])
 
 # this saves the best model with val_loss under the name specified below

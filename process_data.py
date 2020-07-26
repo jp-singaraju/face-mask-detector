@@ -17,7 +17,7 @@ from tensorflow.python.keras.preprocessing.image import load_img, img_to_array
 # it has added progress bars to show the progress so far when receiving the values
 # this file is mainly for pre-processing all the data to be used in the main_model.py file
 
-# directories with 224 x 224 grayscale images, use the directories previously created by you, after unzipping and converting, or downloading
+# use directories with grayscale images after unzipping and converting, or downloading
 # after doing what is said above, uncomment the bottom two lines
 # new_without_dir = your new directory where your updated no mask images are (224 x 224 grayscale)
 # new_with_dir = your new directory where your mask images are (224 x 224 grayscale)

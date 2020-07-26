@@ -1,4 +1,4 @@
-# truncate the time decimal to 4 decimals
+# truncate the time decimal to four decimals
 def truncate(n, decimals=4):
     # get the multiplier value
     multiplier = 10 ** decimals

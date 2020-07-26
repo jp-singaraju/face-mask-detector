@@ -10,9 +10,9 @@ import time
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # import the following tf/keras modules
-from keras_preprocessing.image import img_to_array
 from tensorflow.python.keras.applications.mobilenet_v2 import preprocess_input
-from keras.models import load_model
+from keras_preprocessing.image import img_to_array
+from tensorflow.keras.models import load_model
 
 # initialize total_time, i, and start the time
 total_time = 0.0
@@ -45,7 +45,7 @@ print('starting video stream...')
 # cv2.CAP_DSHOW is the argument that doesn't print an warnings when 'q' pressed, if any
 source = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
-# declare a detection_net using the specified caffe model and config file
+# declare a detection_net using the prototxt model architecture and the weights from the caffe model
 detection_net = cv2.dnn.readNet('face-detection-models/deploy.prototxt.txt',
                                 'face-detection-models/res10_300x300_ssd_iter_140000.caffemodel')
 
@@ -69,7 +69,7 @@ def predict_mask(image, model):
     # for all the faces that it sees in the image
     for i in range(preds.shape[2]):
         # if the confidence of the face it sees is above .6, continue
-        # in other words, if it thinks that the chance that it is a face is .6, then proceed
+        # in other words, if it thinks that the chance that it is a face is .6 or more, then proceed
 
         if preds[0, 0, i, 2] > .6:
             # get the specified pixel locations for each face and multiply it by h and w from before
@@ -132,7 +132,7 @@ while True:
     predict_mask(frame, mask_model)
     cv2.imshow('Face Mask Detection', frame)
 
-    # if the user outputs a a letter from the keyboard, set it equal to user
+    # if the user outputs a letter from the keyboard, set it equal to user
     user = cv2.waitKey(1)
 
     # if user == 'q', break out of the loop and stop

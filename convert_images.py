@@ -10,11 +10,10 @@ import time
 
 # Dataset Folder Structure
 # Face Mask Detection Data
-#   |_ 20k_faces
-#           |_ without_mask
-#           |_ with_mask
-#           |_ new_without_mask
-#           |_ new_with_mask
+#     |_ without_mask
+#     |_ with_mask
+#     |_ new_without_mask
+#     |_ new_with_mask
 
 # get the directory for the files, uncomment these lines below
 
@@ -26,32 +25,32 @@ import time
 # initialize the time variable
 total_time = 0
 
-# set the folder you want to iterate through, in this case withDir (rgb images with masks)
+# set the folder you want to iterate through, in this case with_dir (rgb images with masks)
 for image in os.listdir(with_dir):
     start_time = time.time()  # start the time
     print(image)  # print the image name
     image_main = cv2.imread(with_dir + image)  # read the image from the directory specified
-    dim = (224, 224)  # resize image to dim
-    image_main = cv2.resize(image_main, dim)  # resize the images with specs
+    dim = (224, 224)  # set dimensions
+    image_main = cv2.resize(image_main, dim)  # resize the images with dimensions
     image_main = cv2.cvtColor(image_main, cv2.COLOR_BGR2GRAY)  # make the image grayscale
-    cv2.imwrite(new_with_dir + image, image_main)  # write the image, or save it into the new folder (newWithDir)
+    cv2.imwrite(new_with_dir + image, image_main)  # save the image into the new folder (new_with_dir)
     end_time = time.time()  # end the time
     total_time += end_time - start_time  # add total time
     print(total_time)  # print the time after each iteration
 
-# the other folder to iterate through, withoutDir (rgb without masks), same code, different directory
+# the other folder to iterate through, without_dir (rgb without masks), same process, different directory
 for image in os.listdir(without_dir):
     start_time = time.time()  # start the time
     print(image)  # print the image name
     image_main = cv2.imread(without_dir + image)  # read the image from the directory specified
-    dim = (224, 224)  # resize image to dim
-    image_main = cv2.resize(image_main, dim)  # resize the images with specs
+    dim = (224, 224)  # set dimensions
+    image_main = cv2.resize(image_main, dim)  # resize the images with dimensions
     image_main = cv2.cvtColor(image_main, cv2.COLOR_BGR2GRAY)  # make the image grayscale
-    cv2.imwrite(new_without_dir + image, image_main)  # write the image, or save it into the new folder (newWithDir)
+    cv2.imwrite(new_without_dir + image, image_main)  # save the image into the new folder (new_without_dir)
     end_time = time.time()  # end the time
     total_time += end_time - start_time  # add total time
     print(total_time)  # print the time after each iteration
 
-# code to show image with array = image_main
+# code to show image with pixel values = image_main
 # plt.imshow(image_main)
 # plt.show()
