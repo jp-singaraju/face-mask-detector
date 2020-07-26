@@ -44,8 +44,14 @@ This is the only step that you need to perform on your behalf if you want to run
 <li><p>Please feel free to fork this repo and share it! Thank You!</p></li>
 </ul>
 
-#### Thanks to:
+#### Special Thanks To:
 <ul>
+<li><p><i>Dr. Jey Veerasamy</i>, Director, Center for Computer Science Education & Outreach at UT Dallas</p></li>
+<li><p><i>Dr. Anurag Nagar</i>, Assistant Professor at UT Dallas</p></li>
+<li><p><i>Ashutosh Senapati</i>, MSCS at UT Dallas</p></li>
+<li><p><i>Omeed Ashtiani</i>, PhD student in Computer Science at UT Dallas</p></li>
+</ul>
+<ul>  
 <li><p><i>Adrian Rosebrock</i> from <i>PyImageSearch</i></p></li>
 <li><p><i>Prasoon Kottarathil</i> for his original dataset</p></li>
 </ul>
