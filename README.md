@@ -36,7 +36,7 @@ This is the only step that you need to perform on your behalf if you want to run
 #### Project Links:
 This GitHub Link: https://github.com/jp-singaraju/Face-Mask-Detection<br/>
 Lavik Jain Kaggle Link: https://www.kaggle.com/luka77/facemask-detection-dataset-20000-images<br/>
-Jathin Pranav Singaraju Kaggle Link: https://www.kaggle.com/pranavsingaraju/facemask-detection-dataset-20000-images<br/>
+Pranav Singaraju Kaggle Link: https://www.kaggle.com/pranavsingaraju/facemask-detection-dataset-20000-images<br/>
 Dataset License Link: https://creativecommons.org/licenses/by-sa/4.0<br/>
 
 
