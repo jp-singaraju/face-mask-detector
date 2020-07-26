@@ -26,19 +26,29 @@ After preprocesssing the data, saving the pixel values into arrays, and storing 
 
 ### Step 4
 #### Testing the Model:
-This is the only step that you need to perform on your behalf if you want to run the code and see it working real-time. All the correct packages need to be imported. This testing phase uses cv2 video stream to recognize each frame in the image and classify all the people with and without masks. This program constructs blobs of each frame and passes it through a pre-trained face recognition model with weights (both files can be found in face-detection-models). It finds the ROIs and draws bouding boxes on them for aesthetics. Also, it shows the color and label on top of the box, along with a probability of the model confidence. Once again, for a complete understanding of each line in the code, please view video_testing.py. Hope you got it to work and understand everything! Good luck experimenting!
+This is the only step that you need to perform on your behalf if you want to run the code and see it working real-time. All the correct packages need to be imported. This testing phase uses cv2 video stream to recognize each frame in the image and classify all the people with and without masks. This program constructs blobs of each frame and passes it through a pre-trained face recognition model with weights (both files can be found in face-detection-models) in order to find all the faces in a frame. It then finds the ROIs (region of interests) and draws bouding boxes on them for aesthetics. The ROIs will be the part we are interested in, so that we can classify mask or no mask. Also, it shows the color and label on top of the box, along with a probability of the model confidence. After testing different face reocognition methods, we noticed that Haar cascading was found to be inaacurate and not reliable because it wouldn't find the ROIs most of the faces with masks. Face detection using the caffe model is super precise and notices the faces almost every single test run. So if you are looking for an accurate face mask predictor, please feel free to try it yourself and share the project. Once again, for a complete understanding of each line in the code, please view video_testing.py. Hope you got it to work and understand everything! Good luck experimenting!
 
 ### Extra
+#### Notes:
+<ul>
+<li><p>When you decide to fork this repo and work on it, please cite this github repo link and either of our dataset links for credibility and copyright purposes.</p></li>
+<li><p>Please read the comments in the code in order to completely get an understanding of what this model does and its purpose. The comments are very detailed and should explain what each line's significance and purpose are.</p></li>
+<li><p>Please feel free to fork this repo and share it! Thank You!</p></li>
+</ul>
+
 #### Thanks to:
-*Adrian Rosebrock* from *PyImageSearch*<br/>
-*Prasoon Kottarathil* for his original dataset<br/>
+<ul>
+<li><p><i>Adrian Rosebrock</i> from <i>PyImageSearch</i></p></li>
+<li><p><i>Prasoon Kottarathil</i> for his original dataset</p></li>
+</ul>
 
 #### Project Links:
-This GitHub Link: https://github.com/jp-singaraju/Face-Mask-Detection<br/>
-Lavik Jain Kaggle Link: https://www.kaggle.com/luka77/facemask-detection-dataset-20000-images<br/>
-Pranav Singaraju Kaggle Link: https://www.kaggle.com/pranavsingaraju/facemask-detection-dataset-20000-images<br/>
-Dataset License Link: https://creativecommons.org/licenses/by-sa/4.0<br/>
-
+<ul>
+<li><p>This GitHub Link: https://github.com/jp-singaraju/Face-Mask-Detection</p></li>
+<li><p>Lavik Jain Kaggle Link: https://www.kaggle.com/luka77/facemask-detection-dataset-20000-images</p></li>
+<li><p>Pranav Singaraju Kaggle Link: https://www.kaggle.com/pranavsingaraju/facemask-detection-dataset-20000-images</p></li>
+<li><p>Dataset License Link (CC BY-SA 4.0): https://creativecommons.org/licenses/by-sa/4.0</p></li>
+</ul>
 
 ## Demo
 Below is our demo of the model working and additional resources from our presentation and video.
