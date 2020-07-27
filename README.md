@@ -67,7 +67,9 @@ This is the only step that you need to perform on your behalf if you want to run
 </ul>
 
 ## Demo
-Below is our demo of the model working and additional resources from our presentation and video.
+Below is our linked video and presentation:
 
-Presentation link is [here](https://docs.google.com/presentation/d/1g_97E7p7wfVq2Mczl9HXV0UFrqwkSsLMKyvj1OaXrs0/edit?usp=sharing).
-Video link will be attached later...
+Presentation link is [here](https://docs.google.com/presentation/d/1g_97E7p7wfVq2Mczl9HXV0UFrqwkSsLMKyvj1OaXrs0/edit?usp=sharing). </br>
+Below is the youtube video for our system, if that does not work, please click [here](https://youtu.be/KhQo-jdlRg0).
+
+[![Face Mask Detection System](https://img.youtube.com/vi/KhQo-jdlRg0/0.jpg)](https://www.youtube.com/watch?v=KhQo-jdlRg0)
