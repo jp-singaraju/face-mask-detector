@@ -70,6 +70,6 @@ This is the only step that you need to perform on your behalf if you want to run
 Below is our linked video and presentation:
 
 Presentation link is [here](https://docs.google.com/presentation/d/1g_97E7p7wfVq2Mczl9HXV0UFrqwkSsLMKyvj1OaXrs0/edit?usp=sharing). </br>
-Below is the youtube video for our system, if that does not work, please click [here](https://youtu.be/KhQo-jdlRg0).
+Below is the youtube video for our system, if that does not work, please click [here](https://www.youtube.com/watch?v=RcaZgubCRrE).
 
 [![Face Mask Detection System](https://img.youtube.com/vi/RcaZgubCRrE/0.jpg)](https://www.youtube.com/watch?v=RcaZgubCRrE)
