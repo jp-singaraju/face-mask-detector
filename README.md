@@ -72,4 +72,4 @@ Below is our linked video and presentation:
 Presentation link is [here](https://docs.google.com/presentation/d/1g_97E7p7wfVq2Mczl9HXV0UFrqwkSsLMKyvj1OaXrs0/edit?usp=sharing). </br>
 Below is the youtube video for our system, if that does not work, please click [here](https://youtu.be/KhQo-jdlRg0).
 
-[![Face Mask Detection System](https://img.youtube.com/vi/KhQo-jdlRg0/0.jpg)](https://www.youtube.com/watch?v=KhQo-jdlRg0)
+[![Face Mask Detection System](https://img.youtube.com/vi/RcaZgubCRrE/0.jpg)](https://www.youtube.com/watch?v=RcaZgubCRrE)
